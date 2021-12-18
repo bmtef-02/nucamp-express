@@ -1,6 +1,8 @@
 const express = require('express')
 const morgan = require('morgan');
 const campsiteRouter = require('./routes/campsiteRouter');
+const promotionRouter = require('./routes/promotionRouter');
+const partnerRouter = require('./routes/partnerRouter');
 
 const hostname = 'localhost';
 const port = 3000;
@@ -9,8 +11,11 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.use('/campsites', campsiteRouter);
+app.use('/campsites', campsiteRouter);  // for all paths ending /campsites, use router campsiteRouter
+app.use('/promotions', promotionRouter);    // for all paths ending /promotions use router promotionRouter
+app.use('/partners', partnerRouter);
 
+// for all other paths, use the routes below
 app.use(express.static(__dirname + '/public'));
 
 app.use((req, res) => {
